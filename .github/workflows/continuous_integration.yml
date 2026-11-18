@@ -1,0 +1,27 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  # The upstream sync starts this by hand: its merge is pushed with
+  # GITHUB_TOKEN, and those pushes trigger no workflows.
+  workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci --no-audit --no-fund
+
+      # Jest only: upstream's own `tsc` run fails on its test files, and the
+      # image build type-checks everything that ships.
+      - run: npm test
