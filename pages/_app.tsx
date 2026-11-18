@@ -1,6 +1,5 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
-import Script from "next/script";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 
@@ -83,13 +82,6 @@ export default function App(props: AppProps) {
         {/* No hreflang here: alternates are per-route and must not appear on
             the noindex share pages. components/SeoHead owns them. */}
       </Head>
-      {process.env.NODE_ENV === "production" && (
-        <Script
-          src="https://static.cloudflareinsights.com/beacon.min.js"
-          strategy="afterInteractive"
-          data-cf-beacon='{"token": "42f927fda7404332a3720866ad63795f"}'
-        />
-      )}
       <I18nProvider i18n={i18n}>
         <MantineProvider theme={theme} forceColorScheme="dark">
           {/* Pages render *inside* the shell: as siblings, page output landed
