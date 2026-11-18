@@ -1,0 +1,8 @@
+.git
+.next
+.netlify
+.env*
+node_modules
+src/locales
+coverage
+test
